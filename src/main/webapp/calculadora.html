@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ximo</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous"> 
+    
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+        
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1>Pagina de Ximo</h1>
+                    <h2>Calculadora</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <form id="form">
+                        
+                        <div class="mb-3">
+                            <label for="op1" class="form-label">Numero 1</label>
+                            <input type="text" class="form-control" id="op1" name="op1">
+                        </div>
+                        <div class="mb-3">
+                            <label for="op2" class="form-label">Numero 2</label>
+                            <input type="text" class="form-control" id="op2" name="op2">
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="btnsubmit">Calcular</button>
+                         <select id="selector" name="selector">
+                            <option value="add">suma</option>
+                            <option value="minus">resta</option>
+                            <option value="mult">mult</option>
+                            <option value="div">div</option>
+                        </select>
+                    </form>
+                    <h1 id="feedback"></h1>
+                </div>
+            </div>
+        </div>
+        
+    </body>
+    
+     <script>
+        $(document).ready(function () {
+            $("#btnsubmit").click(function () {
+                
+                $.ajax({
+                    method: "GET",
+                    dataType: "text",
+                    contentType: "application/json",
+                    url: "sesiones?op=calcular"+ "&op1=" + $("#op1").val() +"&op2="+ $("#op2").val() + "&operacion=" + $("#selector").val(),
+                    success: function (response) {
+                        console.log(response)
+                        $("#feedback").html("Resultado " + response)
+                       
+                    },
+
+                })
+                
+                return false;
+            })
+            
+            
+        });
+
+
+    </script>
+</html>
